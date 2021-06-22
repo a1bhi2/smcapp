@@ -70,7 +70,7 @@ public class AuthController {
                 roles));
     }
 
-    @PostMapping("/signup")
+    @PostMapping("/signup/")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) throws MessagingException {
 //        if (userRepository.existsByUsername(signUpRequest.getUsername())) {
 //            return ResponseEntity
@@ -87,11 +87,11 @@ public class AuthController {
         // Create new user's account
         System.out.println("we are in");
         User user = new User(signUpRequest.getUsername(),
-                encoder.encode(signUpRequest.getPassword()),
+                signUpRequest.getPassword(),
                 signUpRequest.getRole(),
                 signUpRequest.getEmail(),
                 signUpRequest.getMobileNumber(),
-                false
+                true
                 );
 
 //        Set<String> strRoles = signUpRequest.getRole();
@@ -120,7 +120,7 @@ public class AuthController {
 //
 //        user.setRoles(roles);
         User savedUser = userRepository.save(user);
-        sendEmail(savedUser.getId());
+//        sendEmail(savedUser.getId());
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 
