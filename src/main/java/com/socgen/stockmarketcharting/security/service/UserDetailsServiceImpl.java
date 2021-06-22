@@ -3,7 +3,7 @@ package com.socgen.stockmarketcharting.security.service;
 
 
 
-import com.socgen.stockmarketcharting.model.User;
+import com.socgen.stockmarketcharting.model.UserEntity;
 import com.socgen.stockmarketcharting.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,13 +22,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username)
+        UserEntity userEntity = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
 
-        return UserDetailsImpl.build(user);
+        return UserDetailsImpl.build(userEntity);
     }
-    public User findById(long id){
-        Optional<User> userOptional = userRepository.findById(id);
+    public UserEntity findById(long id){
+        Optional<UserEntity> userOptional = userRepository.findById(id);
         if(userOptional.isPresent())
             return userOptional.get();
         throw new UsernameNotFoundException("Not found");

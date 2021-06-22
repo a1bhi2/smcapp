@@ -1,6 +1,6 @@
 package com.socgen.stockmarketcharting.controller;
 
-import com.socgen.stockmarketcharting.model.User;
+import com.socgen.stockmarketcharting.model.UserEntity;
 import com.socgen.stockmarketcharting.payload.request.LoginRequest;
 import com.socgen.stockmarketcharting.payload.request.SignupRequest;
 import com.socgen.stockmarketcharting.payload.response.JwtResponse;
@@ -27,7 +27,6 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.swing.text.html.Option;
 import javax.validation.Valid;
 import java.util.Optional;
 import java.util.Properties;
@@ -86,7 +85,7 @@ public class AuthController {
 
         // Create new user's account
         System.out.println("we are in");
-        User newUser = new User(signUpRequest.getUsername(),
+        UserEntity newUserEntity = new UserEntity(signUpRequest.getUsername(),
                 signUpRequest.getPassword(),
                 signUpRequest.getRole(),
                 signUpRequest.getEmail(),
@@ -95,7 +94,7 @@ public class AuthController {
                 );
         System.out.println(signUpRequest);
         System.out.println("User");
-        System.out.println(newUser);
+        System.out.println(newUserEntity);
 //        Set<String> strRoles = signUpRequest.getRole();
 //        Set<Role> roles = new HashSet<>();
 //
@@ -111,7 +110,7 @@ public class AuthController {
 //                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 //                        roles.add(adminRole);
 //
-//                        break;    
+//                        break;
 //                    default:
 //                        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
 //                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
@@ -121,7 +120,7 @@ public class AuthController {
 //        }
 //
 //        user.setRoles(roles);
-        User savedUser = userRepository.save(newUser);
+        UserEntity savedUserEntity = userRepository.save(newUserEntity);
 //        sendEmail(savedUser.getId());
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
@@ -144,7 +143,7 @@ public class AuthController {
                 });
 
         try {
-            Optional<User> user = userRepository.findById(id);
+            Optional<UserEntity> user = userRepository.findById(id);
             if(!user.isPresent())
                 throw new UsernameNotFoundException("not found");
             Message message = new MimeMessage(session);
@@ -168,13 +167,13 @@ public class AuthController {
     }
     @RequestMapping(value="/confirmuser/{userid}", method=RequestMethod.GET)
     public String welcomepage(@PathVariable Long userid) {
-        Optional<User> userList =   userRepository.findById(userid);
+        Optional<UserEntity> userList =   userRepository.findById(userid);
         if(!userList.isPresent())
             return "User doesn't exist";
-        User user = userList.get();
-        user.setIsVerified(true);
-        userRepository.save(user);
-        return "User confirmed" +user.getUsername();
+        UserEntity userEntity = userList.get();
+        userEntity.setIsVerified(true);
+        userRepository.save(userEntity);
+        return "User confirmed" + userEntity.getUsername();
     }
 
 
