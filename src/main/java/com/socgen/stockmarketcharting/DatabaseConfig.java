@@ -13,6 +13,7 @@ public class DatabaseConfig {
 
     @Bean
     public DataSource dataSource() {
+        
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl(dbUrl);
         return new HikariDataSource(config);
