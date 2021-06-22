@@ -22,7 +22,7 @@ public class IpoDetails {
     private StockExchange stockExchange;
     private Double pricePerShare;
     private Integer totalNumberOfShares;
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    
     private Date openDateTime;
     private String remarks;
 
