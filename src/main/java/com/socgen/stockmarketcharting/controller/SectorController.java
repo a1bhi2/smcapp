@@ -1,6 +1,7 @@
 package com.socgen.stockmarketcharting.controller;
 
 import com.socgen.stockmarketcharting.model.Company;
+import com.socgen.stockmarketcharting.model.IpoDetails;
 import com.socgen.stockmarketcharting.model.Sector;
 import com.socgen.stockmarketcharting.service.SectorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +56,10 @@ public class SectorController {
         }catch (ResponseStatusException responseStatusException){
             throw responseStatusException;
         }
+    }
+    @DeleteMapping("/delete")
+    public void delete(@RequestBody Sector sector){
+        sectorService.delete(sector);
     }
 
 }

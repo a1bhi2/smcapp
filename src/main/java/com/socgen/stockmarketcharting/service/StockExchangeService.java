@@ -54,4 +54,7 @@ public class StockExchangeService {
         }
         return null;
     }
+    public void delete(StockExchange stockExchange){
+        stockExchangeDAO.delete(stockExchange);
+    }
 }

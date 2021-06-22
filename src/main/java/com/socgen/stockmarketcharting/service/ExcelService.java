@@ -29,5 +29,8 @@ public class ExcelService {
 
         return repository.findAll();
     }
+    public void delete(String companyCode){
+        repository.deleteAllByCompanyCode(companyCode);
+    }
 
 }

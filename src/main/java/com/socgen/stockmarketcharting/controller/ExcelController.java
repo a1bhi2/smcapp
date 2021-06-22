@@ -59,4 +59,8 @@ public class ExcelController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @DeleteMapping("/delete")
+    public void delete(@RequestParam String companyCode){
+        fileService.delete(companyCode);
+    }
 }

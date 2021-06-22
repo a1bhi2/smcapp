@@ -109,4 +109,8 @@ public class CompanyService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         return code;
     }
+
+    public void delete(Company company){
+        companyDAO.delete(company);
+    }
 }

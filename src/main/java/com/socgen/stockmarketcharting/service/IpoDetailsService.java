@@ -19,4 +19,7 @@ public class IpoDetailsService {
     public List<IpoDetails> getAll(){
         return ipoDetailsDAO.findAll();
     }
+    public void delete(IpoDetails ipoDetails){
+        ipoDetailsDAO.delete(ipoDetails);
+    }
 }

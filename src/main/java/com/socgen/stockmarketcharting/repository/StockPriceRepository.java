@@ -6,4 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface StockPriceRepository extends JpaRepository<StockPriceEntity, Long> {
 
+    void deleteAllByCompanyCode(String companyCode);
+
 }

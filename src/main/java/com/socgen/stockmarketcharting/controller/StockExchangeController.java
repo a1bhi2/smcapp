@@ -2,6 +2,7 @@ package com.socgen.stockmarketcharting.controller;
 
 
 import com.socgen.stockmarketcharting.model.Company;
+import com.socgen.stockmarketcharting.model.IpoDetails;
 import com.socgen.stockmarketcharting.model.StockExchange;
 import com.socgen.stockmarketcharting.service.StockExchangeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,5 +63,9 @@ public class StockExchangeController {
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+    @DeleteMapping("/delete")
+    public void delete(@RequestBody StockExchange stockExchange){
+        stockExchangeService.delete(stockExchange);
     }
 }

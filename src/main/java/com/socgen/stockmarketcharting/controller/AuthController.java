@@ -15,6 +15,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -71,17 +72,17 @@ public class AuthController {
 
     @PostMapping("/signup/")
     public ResponseEntity<?> registerUser( @RequestBody SignupRequest signUpRequest) throws MessagingException {
-//        if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-//            return ResponseEntity
-//                    .badRequest()
-//                    .body(new MessageResponse("Error: Username is already taken!"));
-//        }
-//
-//        if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-//            return ResponseEntity
-//                    .badRequest()
-//                    .body(new MessageResponse("Error: Email is already in use!"));
-//        }
+        if (userRepository.existsByUsername(signUpRequest.getUsername())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Username is already taken!"));
+        }
+
+        if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Email is already in use!"));
+        }
 
         // Create new user's account
         System.out.println("we are in");
@@ -95,31 +96,7 @@ public class AuthController {
         System.out.println(signUpRequest);
         System.out.println("User");
         System.out.println(newUserEntity);
-//        Set<String> strRoles = signUpRequest.getRole();
-//        Set<Role> roles = new HashSet<>();
-//
-//        if (strRoles == null) {
-//            Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-//                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-//            roles.add(userRole);
-//        } else {
-//            strRoles.forEach(role -> {
-//                switch (role) {
-//                    case "admin":
-//                        Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-//                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-//                        roles.add(adminRole);
-//
-//                        break;
-//                    default:
-//                        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-//                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-//                        roles.add(userRole);
-//                }
-//            });
-//        }
-//
-//        user.setRoles(roles);
+
         UserEntity savedUserEntity = userRepository.save(newUserEntity);
 //        sendEmail(savedUser.getId());
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
@@ -127,8 +104,8 @@ public class AuthController {
 
 
     public void sendEmail(long id) throws AddressException, MessagingException{
-        final String username = "agagupta940@gmail.com";
-        final String password ="yesiknow";
+        final String username = "youremail@gmail.com";
+        final String password ="yourpassword";
         Properties prop = new Properties();
         prop.put("mail.smtp.host","smtp.gmail.com");
         prop.put("mail.smtp.port","587");
@@ -176,6 +153,16 @@ public class AuthController {
         return "User confirmed" + userEntity.getUsername();
     }
 
+    @DeleteMapping("/deletebyusername")
+    public ResponseEntity<UserEntity> delete(@RequestParam String username){
+        Optional<UserEntity> userEntity = userRepository.findByUsername(username);
+        if(userEntity.isPresent()){
+            userRepository.delete(userEntity.get());
+            return ResponseEntity.ok(userEntity.get());
+        }
+        else
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"User Not found");
+    }
 
 
 

@@ -33,5 +33,10 @@ public class IpoDetailsController {
     public List<IpoDetails> getAll(){
         return ipoDetailsService.getAll();
     }
+
+    @DeleteMapping("/delete")
+    public void delete(@RequestBody IpoDetails ipoDetails){
+        ipoDetailsService.delete(ipoDetails);
+    }
 }
 

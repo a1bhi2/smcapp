@@ -37,4 +37,8 @@ public class SectorService {
     public List<Sector> getAll(){
         return sectorDAO.findAll();
     }
+
+    public void delete(Sector sector){
+        sectorDAO.delete(sector);
+    }
 }
