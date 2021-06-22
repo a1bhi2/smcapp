@@ -86,7 +86,7 @@ public class AuthController {
 
         // Create new user's account
         System.out.println("we are in");
-        User user = new User(signUpRequest.getUsername(),
+        User newUser = new User(signUpRequest.getUsername(),
                 signUpRequest.getPassword(),
                 signUpRequest.getRole(),
                 signUpRequest.getEmail(),
@@ -95,7 +95,7 @@ public class AuthController {
                 );
         System.out.println(signUpRequest);
         System.out.println("User");
-        System.out.println(user);
+        System.out.println(newUser);
 //        Set<String> strRoles = signUpRequest.getRole();
 //        Set<Role> roles = new HashSet<>();
 //
@@ -111,7 +111,7 @@ public class AuthController {
 //                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 //                        roles.add(adminRole);
 //
-//                        break;
+//                        break;    
 //                    default:
 //                        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
 //                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
@@ -121,7 +121,7 @@ public class AuthController {
 //        }
 //
 //        user.setRoles(roles);
-        User savedUser = userRepository.save(user);
+        User savedUser = userRepository.save(newUser);
 //        sendEmail(savedUser.getId());
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
