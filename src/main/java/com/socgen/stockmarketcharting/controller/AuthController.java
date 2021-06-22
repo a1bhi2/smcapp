@@ -33,7 +33,6 @@ import java.util.Optional;
 import java.util.Properties;
 
 
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
