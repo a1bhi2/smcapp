@@ -71,7 +71,7 @@ public class AuthController {
     }
 
     @PostMapping("/signup/")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) throws MessagingException {
+    public ResponseEntity<?> registerUser( @RequestBody SignupRequest signUpRequest) throws MessagingException {
 //        if (userRepository.existsByUsername(signUpRequest.getUsername())) {
 //            return ResponseEntity
 //                    .badRequest()
