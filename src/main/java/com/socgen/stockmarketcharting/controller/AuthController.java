@@ -93,7 +93,9 @@ public class AuthController {
                 signUpRequest.getMobileNumber(),
                 true
                 );
-
+        System.out.println(signUpRequest);
+        System.out.println("User");
+        System.out.println(user);
 //        Set<String> strRoles = signUpRequest.getRole();
 //        Set<Role> roles = new HashSet<>();
 //
