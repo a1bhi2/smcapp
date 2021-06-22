@@ -72,17 +72,17 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) throws MessagingException {
-        if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: Username is already taken!"));
-        }
-
-        if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: Email is already in use!"));
-        }
+//        if (userRepository.existsByUsername(signUpRequest.getUsername())) {
+//            return ResponseEntity
+//                    .badRequest()
+//                    .body(new MessageResponse("Error: Username is already taken!"));
+//        }
+//
+//        if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+//            return ResponseEntity
+//                    .badRequest()
+//                    .body(new MessageResponse("Error: Email is already in use!"));
+//        }
 
         // Create new user's account
         User user = new User(signUpRequest.getUsername(),
@@ -153,7 +153,7 @@ public class AuthController {
             message.setSubject("User confirmation email");
 
             message.setContent(
-                    "<h1><a href =\"http://127.0.0.1:8081/api/auth/confirmuser/"+id+"/\"> Click to confirm </a></h1>",
+                    "<h1><a href =\"https://secret-tundra-65063.herokuapp.com/api/auth/confirmuser/"+id+"/\"> Click to confirm </a></h1>",
                     "text/html");
             Transport.send(message);
 
