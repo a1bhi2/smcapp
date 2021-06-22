@@ -32,7 +32,7 @@ import javax.validation.Valid;
 import java.util.Optional;
 import java.util.Properties;
 
-
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
