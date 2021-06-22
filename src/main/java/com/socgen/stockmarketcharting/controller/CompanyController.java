@@ -85,7 +85,7 @@ public class CompanyController {
             throw e;
         }
     }
-    @DeleteMapping("/delete")
+    @PostMapping("/delete")
     public void delete(@RequestBody Company company){
         companyService.delete(company);
     }

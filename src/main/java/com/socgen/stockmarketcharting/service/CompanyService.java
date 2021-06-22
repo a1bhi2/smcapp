@@ -112,5 +112,6 @@ public class CompanyService {
 
     public void delete(Company company){
         companyDAO.delete(company);
+        companyInStockExchangeDAO.deleteAllByCompanyId(company.getId());
     }
 }

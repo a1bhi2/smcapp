@@ -20,4 +20,6 @@ public interface CompanyInStockExchangeDAO extends JpaRepository<CompanyInStockE
 
     @Query("Select c from CompanyInStockExchange c where c.stockExchangeName=:name")
     List<CompanyInStockExchange> findCompaniesInStockExchange(@Param("name") String name);
+
+    void deleteAllByCompanyId(Integer companyId);
 }
